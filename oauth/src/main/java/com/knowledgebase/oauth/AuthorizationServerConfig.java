@@ -13,6 +13,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+
+/**
+ * 
+ * @author Oscar
+ *
+ * This class sets up our authorization server.
+ */
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
@@ -34,6 +41,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.passwordEncoder(bCryptPasswordEncoder);
 	}
 
+	/**
+	 * In memory authentication for the client
+	 */
+	//TODO: this needs to be moved to the database just like the user and role. 
 	@Override
 	public void configure(final ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory().withClient("client")
@@ -42,6 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.accessTokenValiditySeconds(3600).refreshTokenValiditySeconds(36000);
 	}
 
+	//TODO: change this to a JDBC token store once everything is in db
 	@Bean
 	public TokenStore tokenStore() {
 		return new InMemoryTokenStore();

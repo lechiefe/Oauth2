@@ -18,6 +18,7 @@ public abstract class DateAudit implements Serializable {
 
 	private static final long serialVersionUID = -7693411607748133646L;
 
+	//TODO: implement mechanism for setting dates in db on save.
 	@CreatedDate
 //	@Column(nullable = false, updatable = false)
 	private Instant createdAt;

@@ -28,6 +28,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
+	/**
+	 * This method is used in the security filter chain to check if the user we are
+	 * attempting to login has is present in db, is active and has proper
+	 * permissions.
+	 */
+	// TODO: the queries need to be formalized and moved to the application
+	// properties.
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -39,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 						+ "ON crm_data_schema.user_role.role_id = crm_data_schema.roles.id " + " where username= ?;")
 				.dataSource(dataSource).passwordEncoder(bCryptPasswordEncoder);
 
+		// TODO: this is for testing purposes only, remove this once stable.
 		System.out.println(
 				"->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + bCryptPasswordEncoder.encode("123"));
 		System.out.println("->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "
